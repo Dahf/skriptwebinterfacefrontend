@@ -1,13 +1,15 @@
+version: "3.8"
+
 services:
   webapp:
     build: .
     container_name: vite-dev
     restart: unless-stopped
     ports:
-      - "5173:5173" # Port-Mapping: Der Container läuft auf Port 5173
+      - "5173:5173"
     volumes:
-      - .:/app # Mountet das lokale Verzeichnis für Live-Updates
-      - /app/node_modules # Verhindert Probleme mit `node_modules`
+      - .:/app # 🔹 Lokale Dateien in den Container mounten
+      - /app/node_modules # 🔹 Verhindert Konflikte mit Node Modules
     environment:
-      - HOST=0.0.0.0 # Erlaubt externen Zugriff auf Vite
-    command: ["npm", "run", "dev"] # Startet Vite als Entwicklungsserver
+      - HOST=0.0.0.0
+    command: ["npm", "run", "dev"]
