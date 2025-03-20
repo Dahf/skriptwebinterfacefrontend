@@ -10,3 +10,9 @@ services:
       - /app/node_modules # 🔹 Verhindert Konflikte mit Node Modules
     environment:
       - HOST=0.0.0.0
+    networks:
+      - express_network
+
+networks:
+  express_network:
+    external: true

@@ -105,6 +105,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log("http://mcskript-backend:3000/scripts");
     if (token) {
       loadScripts();
     }
