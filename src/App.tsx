@@ -20,7 +20,7 @@ const App: React.FC = () => {
   // 📌 1. Registrierung (bekommt `verify_code`)
   const handleRegister = async () => {
     try {
-      const res = await axios.post("http://mcskript-backend:3000/register", {
+      const res = await axios.post("http://87.106.33.94:3000/register", {
         username,
         password,
       });
@@ -36,7 +36,7 @@ const App: React.FC = () => {
   // 📌 2. Login (nach Verifizierung)
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://mcskript-backend:3000/login", {
+      const res = await axios.post("http://87.106.33.94:3000/login", {
         username,
         password,
       });
@@ -54,7 +54,7 @@ const App: React.FC = () => {
   const loadScripts = async () => {
     if (!token) return;
     try {
-      const res = await axios.get("http://mcskript-backend:3000/scripts", {
+      const res = await axios.get("http://87.106.33.94:3000/scripts", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setScripts(res.data.scripts);
@@ -78,7 +78,7 @@ const App: React.FC = () => {
 
     try {
       await axios.post(
-        "http://mcskript-backend:3000/scripts",
+        "http://87.106.33.94:3000/scripts",
         { filename: selectedFile, content: fileContent },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -105,7 +105,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("http://mcskript-backend:3000/scripts");
+    console.log("http://87.106.33.94:3000/scripts");
     if (token) {
       loadScripts();
     }
