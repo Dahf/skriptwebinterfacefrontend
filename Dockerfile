@@ -4,8 +4,8 @@ FROM node:18-alpine
 # 2. Setze das Arbeitsverzeichnis
 WORKDIR /app
 
-# 3. Kopiere zuerst die package.json & package-lock.json
-COPY package.json package-lock.json ./
+# 3. Kopiere zuerst die package.json
+COPY package.json ./
 
 # 4. Installiere Abhängigkeiten
 RUN npm install
