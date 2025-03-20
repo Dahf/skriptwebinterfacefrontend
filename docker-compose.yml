@@ -10,4 +10,3 @@ services:
       - /app/node_modules # 🔹 Verhindert Konflikte mit Node Modules
     environment:
       - HOST=0.0.0.0
-    command: ["serve", "-s", "dist", "-l", "5173"]
