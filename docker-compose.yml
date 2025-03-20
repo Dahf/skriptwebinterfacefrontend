@@ -1,7 +1,7 @@
 services:
   webapp:
     build: .
-    container_name: vite-dev
+    container_name: mcskript-frontend
     restart: unless-stopped
     ports:
       - "5173:5173"
