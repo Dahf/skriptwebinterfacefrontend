@@ -1,15 +1,13 @@
-version: "3.8"
-
 services:
   webapp:
     build: .
-    container_name: web-app
+    container_name: vite-dev
     restart: unless-stopped
     ports:
-      - "8080:80"
-    networks:
-      - express_network # ✅ Gleiches Netzwerk wie Express-Server verwenden
-
-networks:
-  express_network: # ✅ Netzwerk-Name muss mit dem aus deinem Express-Setup übereinstimmen!
-    external: true
+      - "5173:5173" # Port-Mapping: Der Container läuft auf Port 5173
+    volumes:
+      - .:/app # Mountet das lokale Verzeichnis für Live-Updates
+      - /app/node_modules # Verhindert Probleme mit `node_modules`
+    environment:
+      - HOST=0.0.0.0 # Erlaubt externen Zugriff auf Vite
+    command: ["npm", "run", "dev"] # Startet Vite als Entwicklungsserver

@@ -1,23 +1,23 @@
-# Basis-Image für Node.js (zum Bauen der App)
-FROM node:18-alpine AS builder
+# 1. Verwende ein leichtes Node.js-Image
+FROM node:18-alpine
 
-# Arbeitsverzeichnis setzen
+# 2. Setze das Arbeitsverzeichnis
 WORKDIR /app
 
-# Package.json und Abhängigkeiten installieren
+# 3. Kopiere die `package.json` und `package-lock.json`, um Caching zu nutzen
 COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile
 
-# Code kopieren und Vite-Build erstellen
+# 4. Installiere die Abhängigkeiten
+RUN npm install
+
+# 5. Kopiere den gesamten Code ins Container-Verzeichnis
 COPY . .
-RUN npm run build
 
-# Basis-Image für den Webserver (nginx)
-FROM nginx:alpine
+# 6. Setze die Umgebungsvariable, damit Vite von außen erreichbar ist
+ENV HOST=0.0.0.0
 
-# Build-Dateien in den Webserver kopieren
-COPY --from=builder /app/dist /usr/share/nginx/html
+# 7. Öffne den Port für Vite (Standard ist 5173)
+EXPOSE 5173
 
-# Port freigeben und Nginx starten
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# 8. Starte die Entwicklungsumgebung mit `npm run dev`
+CMD ["npm", "run", "dev"]
