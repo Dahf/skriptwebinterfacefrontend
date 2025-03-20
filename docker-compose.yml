@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  webapp:
+    build: .
+    container_name: web-app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    networks:
+      - express_network # ✅ Gleiches Netzwerk wie Express-Server verwenden
+
+networks:
+  express_network: # ✅ Netzwerk-Name muss mit dem aus deinem Express-Setup übereinstimmen!
+    external: true
