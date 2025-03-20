@@ -1,23 +1,18 @@
-# 1. Verwende ein Node.js-Image (Alpine ist leichtgewichtig)
 FROM node:18-alpine
 
-# 2. Setze das Arbeitsverzeichnis
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# 3. Kopiere zuerst die package.json
-COPY package.json ./
+COPY package*.json ./
 
-# 4. Installiere Abhängigkeiten
-RUN npm install
+# Clean npm cache and install dependencies with verbose logging
+RUN npm cache clean --force && npm install
 
-# 5. Kopiere den restlichen Code ins Docker-Image
+RUN npm i -g serve
+
 COPY . .
 
-# 6. Stelle sicher, dass Vite von außen erreichbar ist
-ENV HOST=0.0.0.0
+RUN npm run build
 
-# 7. Öffne den Port für Vite (Standard ist 5173)
-EXPOSE 5173
+EXPOSE 3000
 
-# 8. Starte den Entwicklungsserver
-CMD ["npm", "run", "dev"]
+CMD [ "serve", "-s", "dist" ]
